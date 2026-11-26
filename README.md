@@ -1,3 +1,13 @@
+---
+title: CrowdSafe AI
+emoji: 👁️
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # CrowdSafe AI — Intelligent Crowd Safety & Stampede Prevention System
 
 > An enterprise-grade, real-time computer vision and multimodal AI platform for crowd density monitoring, movement telemetry, stampede prevention, automated video analysis, and conversational crowd intelligence.
