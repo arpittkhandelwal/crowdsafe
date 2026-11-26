@@ -581,7 +581,7 @@ def api_video_report_pdf(job_id: str):
 @app.get("/")
 def index(request: Request):
     """Main dashboard interface."""
-    resp = templates.TemplateResponse("dashboard.html", {"request": request})
+    resp = templates.TemplateResponse(request=request, name="dashboard.html")
     resp.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     resp.headers["Pragma"] = "no-cache"
     resp.headers["Expires"] = "0"
@@ -590,7 +590,7 @@ def index(request: Request):
 @app.get("/mobile")
 def mobile_index(request: Request):
     """Mobile Command Center interface."""
-    resp = templates.TemplateResponse("mobile.html", {"request": request})
+    resp = templates.TemplateResponse(request=request, name="mobile.html")
     resp.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     resp.headers["Pragma"] = "no-cache"
     resp.headers["Expires"] = "0"

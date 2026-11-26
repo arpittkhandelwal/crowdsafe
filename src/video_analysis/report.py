@@ -8,21 +8,6 @@ import os
 import datetime
 from typing import Dict, Any, List, Optional
 
-from reportlab.lib.pagesizes import A4
-from reportlab.platypus import (
-    SimpleDocTemplate,
-    Paragraph,
-    Spacer,
-    Table,
-    TableStyle,
-    HRFlowable,
-    Image as RLImage,
-    KeepTogether
-)
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib import colors
-from reportlab.lib.units import cm
-
 
 def generate_video_analysis_pdf(
     output_pdf_path: str,
@@ -36,6 +21,28 @@ def generate_video_analysis_pdf(
     """
     Build and save an in-depth A4 PDF report for an analyzed video file.
     """
+    try:
+        from reportlab.lib.pagesizes import A4
+        from reportlab.platypus import (
+            SimpleDocTemplate,
+            Paragraph,
+            Spacer,
+            Table,
+            TableStyle,
+            HRFlowable,
+            Image as RLImage,
+            KeepTogether
+        )
+        from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+        from reportlab.lib import colors
+        from reportlab.lib.units import cm
+    except ImportError:
+        # Fallback to plain text summary if reportlab is unavailable
+        with open(output_pdf_path, "w", encoding="utf-8") as f:
+            f.write(f"CROWDSAFE VIDEO REPORT: {video_metadata.get('filename')}\n")
+            f.write(f"Generated: {datetime.datetime.now()}\n")
+            f.write(f"Summary: {analytics_summary}\n")
+        return output_pdf_path
     doc = SimpleDocTemplate(
         output_pdf_path,
         pagesize=A4,
