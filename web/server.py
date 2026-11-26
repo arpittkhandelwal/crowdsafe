@@ -579,6 +579,7 @@ def api_video_report_pdf(job_id: str):
 
 
 @app.get("/")
+@app.get("/dashboard")
 def index(request: Request):
     """Main dashboard interface."""
     resp = templates.TemplateResponse(request=request, name="dashboard.html")
