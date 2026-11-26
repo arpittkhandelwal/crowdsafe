@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: crowdsafe-ai
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: HEADLESS
+        value: "1"
+      - key: SIMULATION_MODE
+        value: "True"
+      - key: MPLBACKEND
+        value: Agg
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_TEXT_MODEL
+        value: gemini-2.5-flash
+      - key: GEMINI_VISION_MODEL
+        value: gemini-2.5-flash
