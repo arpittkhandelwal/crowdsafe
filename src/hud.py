@@ -6,7 +6,10 @@ Draws the full operations dashboard overlay on each video frame.
 import cv2
 import numpy as np
 import time
-import psutil
+try:
+    import psutil
+except ImportError:
+    psutil = None
 from typing import List, Dict, Optional
 
 import sys, os
@@ -200,8 +203,11 @@ class HUDRenderer:
 
     def draw_system_health(self, frame: np.ndarray, fps: float) -> np.ndarray:
         try:
-            cpu = psutil.cpu_percent(interval=None)
-            mem = psutil.virtual_memory().percent
+            if psutil:
+                cpu = psutil.cpu_percent(interval=None)
+                mem = psutil.virtual_memory().percent
+            else:
+                cpu, mem = 0.0, 0.0
         except Exception:
             cpu = mem = 0
         y = self.H - 18

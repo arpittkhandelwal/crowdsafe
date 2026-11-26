@@ -95,14 +95,18 @@ class KalmanBoxTracker:
         return np.array([[x], [y], [s], [r]], dtype=np.float32)
 
     def _z_to_bbox(self, z, score=None):
-        w = np.sqrt(abs(z[2] * z[3])); h = z[2] / w if w else 0
-        x1 = int(z[0] - w / 2); y1 = int(z[1] - h / 2)
-        x2 = int(z[0] + w / 2); y2 = int(z[1] + h / 2)
+        z = np.asarray(z).flatten()
+        w = float(np.sqrt(abs(z[2] * z[3])))
+        h = float(z[2] / w) if w else 0.0
+        x1 = int(round(float(z[0]) - w / 2))
+        y1 = int(round(float(z[1]) - h / 2))
+        x2 = int(round(float(z[0]) + w / 2))
+        y2 = int(round(float(z[1]) + h / 2))
         return x1, y1, x2, y2
 
     def predict(self):
-        if self.kf.x[6] + self.kf.x[2] <= 0:
-            self.kf.x[6] *= 0.0
+        if self.kf.x[6, 0] + self.kf.x[2, 0] <= 0:
+            self.kf.x[6, 0] = 0.0
         self.kf.predict()
         self.age += 1
         if self.time_since_update > 0:
