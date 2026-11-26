@@ -43,6 +43,16 @@ class GeminiClient:
             from google import genai
             self._client = genai.Client(api_key=self.api_key)
             logger.info("Google Gemini Client initialized successfully.")
+        except ImportError:
+            try:
+                import subprocess, sys
+                subprocess.check_call([sys.executable, "-m", "pip", "install", "google-genai", "--no-deps"])
+                from google import genai
+                self._client = genai.Client(api_key=self.api_key)
+                logger.info("Google Gemini Client auto-installed successfully.")
+            except Exception as e:
+                logger.warning(f"Google Gemini Client unavailable: {e}")
+                self._client = None
         except Exception as e:
             logger.warning(f"Failed to initialize Google Gemini Client: {e}")
             self._client = None
