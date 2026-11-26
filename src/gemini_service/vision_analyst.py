@@ -24,6 +24,9 @@ from src.nlp_assistant.schemas import VisionAnalysisResponse
 
 logger = logging.getLogger("GeminiVisionAnalyst")
 
+# Type alias used in method signature
+TupleOptionalFrame = tuple
+
 SNAPSHOT_DIR = os.path.join(RECORDING_DIR, "snapshots")
 os.makedirs(SNAPSHOT_DIR, exist_ok=True)
 
@@ -307,6 +310,4 @@ OUTPUT FORMAT (Respond STRICTLY as JSON with these exact keys):
         )
 
 
-# Helper type for tuple
-TupleOptionalFrame = tuple
 
