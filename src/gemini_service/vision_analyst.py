@@ -24,9 +24,6 @@ from src.nlp_assistant.schemas import VisionAnalysisResponse
 
 logger = logging.getLogger("GeminiVisionAnalyst")
 
-# Type alias used in method signature
-TupleOptionalFrame = tuple
-
 SNAPSHOT_DIR = os.path.join(RECORDING_DIR, "snapshots")
 os.makedirs(SNAPSHOT_DIR, exist_ok=True)
 
@@ -40,7 +37,7 @@ class GeminiVisionAnalyst:
     def __init__(self, client: Optional[GeminiClient] = None):
         self.client = client or GeminiClient()
 
-    def capture_live_frame(self, camera_id: str = "CAM-1") -> TupleOptionalFrame:
+    def capture_live_frame(self, camera_id: str = "CAM-1") -> tuple:
         """
         Capture current raw frame from the running web server state.
         Returns: (frame_bytes, snapshot_filename, snapshot_rel_url)

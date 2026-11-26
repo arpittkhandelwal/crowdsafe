@@ -11,7 +11,7 @@ import time
 import sqlite3
 import datetime
 import logging
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, Tuple
 
 from config.settings import DB_PATH
 from src.gemini_service.client import GeminiClient
